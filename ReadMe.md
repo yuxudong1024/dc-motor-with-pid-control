@@ -1,4 +1,4 @@
-# The MBD Little Demo #
+# The Back-pocket MBD Demo #
 Controlling a DC motor is perfect to show off a variety of products that are a part of Model Based Design.
 The demo is setup to demo a range of products, as well as key modeling features.
 
@@ -20,7 +20,7 @@ Product                       | Topic                                   | Link
 Simscape                      | Using Simscape for Physical Modeling    | https://web.microsoftstream.com/video/deaac496-1bd2-4c82-a009-093d151410d3
 Simulink Design Optimization  | Estimate Parameters to match TestData   | https://web.microsoftstream.com/video/2867db18-3a7d-46a0-a54b-171b261a7c76
 Simulink Control Design       | PID Tuning with Plant Model             | https://web.microsoftstream.com/video/1d971c42-dcf0-437d-ac7a-054f92383bdd
-Embedded Coder                | Going from Models to C code             | Coming Soon
+Embedded Coder                | Going from Models to C code             | https://web.microsoftstream.com/video/23aeb171-7f9c-46d0-967a-0b13dde88a18
 Simulink Test                 | Test your controller with Simulink Test | Coming Soon
 Stateflow                     | Adding supervisory logic with Stateflow | https://web.microsoftstream.com/video/9917af2d-9891-4134-8cf4-92187100a55e
 
