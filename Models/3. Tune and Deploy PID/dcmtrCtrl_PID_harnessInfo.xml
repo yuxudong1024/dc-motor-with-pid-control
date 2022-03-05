@@ -34,7 +34,7 @@
     <P Name="CustomSourcePath"/>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">2|12|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||||dcmtrCtrl_PID_Harness0</P>
+    <P Name="OpenGraphs">||dcmtrCtrl_PID_Harness0</P>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
   </Harness>
@@ -72,7 +72,7 @@
     <P Name="CustomSourcePath"/>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">2|12|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||||dcmtrCtrl_PID_Harness1</P>
+    <P Name="OpenGraphs">||dcmtrCtrl_PID_Harness1</P>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
   </Harness>
