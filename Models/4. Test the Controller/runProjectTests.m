@@ -8,6 +8,12 @@
 % Run the tests
     testSuite = sltest.testmanager.load('dcmtrCTRL_PID_Tests.mldatx');
     result = run(testSuite)
+    
+% Generate C Code
+    % mdlName = {'dcmtrCtrl_PID','dcmtrCtrl_PID_send2Ardu',...
+    %           'dcmtrCtrl_PID_wHandCode'};
+    % slbuild(mdlName) 
+    % % Saved in currentProject().SimulinkCodeGenFolder
 
 % Save test results
     disp('Saving test results...')
