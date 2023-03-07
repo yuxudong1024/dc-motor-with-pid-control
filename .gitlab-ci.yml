@@ -31,7 +31,7 @@ mdlAdvisor-checks-job:       # This job runs in the model checks stage, which ru
     tags:
       - on-prem
     script:
-      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prjj'); runProjectChecks;"
+      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); runProjectChecks;"
     artifacts:
       when: always
       paths:
