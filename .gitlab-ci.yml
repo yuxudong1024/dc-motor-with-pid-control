@@ -31,7 +31,7 @@ mdlAdvisor-checks-job:       # This job runs in the model checks stage, which ru
     tags:
       - on-prem
     script:
-      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMtrCtrl.prj'); runProjectChecks;"
+      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prjj'); runProjectChecks;"
     artifacts:
       when: always
       paths:
@@ -42,7 +42,7 @@ unit-SlTest-job:   # This job runs in the test stage.
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMtrCtrl.prj'); runProjectTests;"
+        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); runProjectTests;"
     artifacts:
       when: always
       paths:
@@ -60,7 +60,7 @@ codeGen-job:      # This job runs in the codeGen stage.
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMtrCtrl.prj'); genCCode;"
+        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genCCode;"
     artifacts:
         when: always
         paths:
