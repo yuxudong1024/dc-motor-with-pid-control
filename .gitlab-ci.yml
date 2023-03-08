@@ -18,7 +18,7 @@ stages:          # List of stages for jobs, and their order of execution
   - check
   - test
   - codeGen
-  - reportOut
+  - saveArtifacts
 
 # if the logs path is changed in startup.m (to store the generated logs during pipeline execution), then change it here as well
 # as this path ensures that logs are stored as artifacts upto package stage and then HTML Summary report is generated using them
@@ -63,12 +63,12 @@ codeGen-job:      # This job runs in the codeGen stage.
 
 # a stage to assert that all stages in this child pipeline have passed successfully.
 # a deploy stage placeholder where ALL the artifacts are available for download
-report-Out:      # Final Stage to alert users this job is donw.
-    stage: reportOut
+artifactGen:      # Final Stage to alert users this job is done.
+    stage: saveArtifacts
     tags:
         - on-prem
     script:
-      - echo "Job Done!"
-      - echo "All artifacts of previous stage can be found here"
+        - echo "Job Done!"
+        - echo "All artifacts of previous stage can be found here"
 #      - 'curl.exe --location --output "$ARTIFACTS_DOWNLOAD_PATH/DriverSwRequestArtifacts.zip" --header "PRIVATE-TOKEN: $CIPROJECTTOKEN" "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_BRANCH/download?job=DriverSwRequestPackage"'
-
+        - 'curl.exe --location --output "$ARTIFACTS_DOWNLOAD_PATH/dcMtrArtifacts.zip" --header "PRIVATE-TOKEN: CGgez9zk9axyFhLHMWyZ" "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_BRANCH/download?job=artifactGen"'
