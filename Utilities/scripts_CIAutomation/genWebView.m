@@ -10,7 +10,8 @@
     load_system(mdlName);
     mdl_webView = slwebview(mdlName{1}, ...
         'FollowModelReference','on',...
-        'PackageName', 'WebExplore_DCMtr_PIDCtrl');
+        'PackageName', 'WebExplore_DCMtr_PIDCtrl',...
+        'PackageFolder',fullfile(prj.RootFolder,'GeneratedArtifacts','WebViews'));
 
 % Cleanup
     disp('Code Generation complete.')
