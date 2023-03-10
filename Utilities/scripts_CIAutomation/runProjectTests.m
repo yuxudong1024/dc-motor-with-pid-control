@@ -15,37 +15,52 @@
     import matlab.unittest.TestRunner
     myrunner = TestRunner.withNoPlugins;
 
-    import sltest.plugins.TestManagerResultsPlugin
-    mldatxFileName = fullfile(prj.RootFolder,...
-        'GeneratedArtifacts','TestResults',[testsName '_Results.mldatx']);
-    tmr = TestManagerResultsPlugin('ExportToFile',mldatxFileName); 
-    addPlugin(myrunner,tmr)
-
-    import matlab.unittest.plugins.TestReportPlugin
-    import matlab.unittest.plugins.TAPPlugin
-    import matlab.unittest.plugins.XMLPlugin
-    import matlab.unittest.plugins.ToFile
-
-    pdfFile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.pdf']);
-    trp = TestReportPlugin.producingPDF(pdfFile);
-    addPlugin(myrunner,trp)
-
-    tapFile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.tap']);
-    tap = TAPPlugin.producingVersion13(ToFile(tapFile));
-    addPlugin(myrunner,tap)
+    % Publish Results as MLDATX
+        import sltest.plugins.TestManagerResultsPlugin
+        mldatxFileName = fullfile(prj.RootFolder,...
+            'GeneratedArtifacts','TestResults',[testsName '_Results.mldatx']);
+        tmr = TestManagerResultsPlugin('ExportToFile',mldatxFileName); 
+        addPlugin(myrunner,tmr)
     
-    xmlFile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.xml']);
-    p = XMLPlugin.producingJUnitFormat(xmlFile);
-    addPlugin(myrunner,p)
+    % Publish Results as PDF
+        import matlab.unittest.plugins.TestReportPlugin
+        pdfFile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.pdf']);
+        trp = TestReportPlugin.producingPDF(pdfFile);
+        addPlugin(myrunner,trp)
+
+    % Publish Results as TAP Report and JUnitFormat
+        import matlab.unittest.plugins.TAPPlugin
+        import matlab.unittest.plugins.XMLPlugin
+        import matlab.unittest.plugins.ToFile
+    
+        tapFile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.tap']);
+        tap = TAPPlugin.producingVersion13(ToFile(tapFile));
+        addPlugin(myrunner,tap)
+        
+        xmlFile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.xml']);
+        p = XMLPlugin.producingJUnitFormat(xmlFile);
+        addPlugin(myrunner,p)
+
+    % Publish Coverage Report
+        import sltest.plugins.coverage.CoverageMetrics
+        cmet = CoverageMetrics('Decision',true,'Condition',true,'MCDC',true);
+    
+        import sltest.plugins.coverage.ModelCoverageReport
+        import matlab.unittest.plugins.codecoverage.CoberturaFormat
+        
+        rptfile = fullfile(prj.RootFolder,'GeneratedArtifacts','TestResults',[testsName '.xml']);
+        rpt = CoberturaFormat(rptfile);
+    
+        import sltest.plugins.ModelCoveragePlugin
+        mcp = ModelCoveragePlugin('Collecting',cmet,'Producing',rpt);
+    
+        addPlugin(myrunner,mcp)
+            % Turn off command line warnings:
+            warning off Stateflow:cdr:VerifyDangerousComparison
+            warning off Stateflow:Runtime:TestVerificationFailed
 
 % Run the tests
     result = run(myrunner,suite)
-    
-% Generate C Code
-    % mdlName = {'dcmtrCtrl_PID','dcmtrCtrl_PID_send2Ardu',...
-    %           'dcmtrCtrl_PID_wHandCode'};
-    % slbuild(mdlName) 
-    % % Saved in currentProject().SimulinkCodeGenFolder
 
 % Cleanup
     disp('Tests complete.')
