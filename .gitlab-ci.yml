@@ -9,12 +9,11 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - codeGen
   - webviewGen
+  - simpleAppGen
   - saveArtifacts
 
-# if the logs path is changed in startup.m (to store the generated logs during pipeline execution), then change it here as well
-# as this path ensures that logs are stored as artifacts upto package stage and then HTML Summary report is generated using them
+
 variables:
-  LOGS_PATH: "./GeneratedArtifacts"
   ARTIFACTS_DOWNLOAD_PATH: "C:/Users/$GITLAB_USER_LOGIN/Downloads"
 
 mdlAdvisor-checks-job:       # This job runs in the model checks stage, which runs first.
@@ -26,10 +25,10 @@ mdlAdvisor-checks-job:       # This job runs in the model checks stage, which ru
     artifacts:
       when: always
       paths:
-        - $LOGS_PATH/CheckResults/
+        - GeneratedArtifacts/CheckResults/
 
 unit-SlTest-job:   # This job runs in the test stage.
-    stage: test    # It only starts when the job in the build stage completes successfully.
+    stage: test 
     tags:
         - on-prem
     script:
@@ -37,9 +36,23 @@ unit-SlTest-job:   # This job runs in the test stage.
     artifacts:
       when: always
       paths:
-        - $LOGS_PATH/TestResults/
+        - GeneratedArtifacts/TestResults/
+      junit:
+        report_paths: GeneratedArtifacts/TestResults/*.xml
+    test:
+      stage: test
+      script:
+        - tap-merge GeneratedArtifacts/TestResults/*.tap > GeneratedArtifacts/TestResults/tap-results.tap
+      artifacts:
+        paths:
+          - GeneratedArtifacts/TestResults/tap-results.tap
+      rules:
+        - when: always
+    tap:
+      script:
+        - tap-parser GeneratedArtifacts/TestResults/tap-results.tap
 
-codeGen-job:      # This job runs in the codeGen stage.
+codeGen-job:      # This job runs the codeGen stage.
     stage: codeGen  
     tags:
         - on-prem
@@ -48,31 +61,34 @@ codeGen-job:      # This job runs in the codeGen stage.
     artifacts:
         when: always
         paths:
-            - $LOGS_PATH/CodeGen/
-#    reports:
-#       junit: ./Design/DriverSwRequest/pipeline/analyze/testing/DriverSwRequestJUnitFormatTestResults.xml
+            - GeneratedArtifacts/CodeGen/
 
-webviewGen-job:      # This job runs in the codeGen stage.
+webviewGen-job:      # This job runs generated webviews of models
     stage: webviewGen  
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genCCode;"
+        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genWebView;"
     artifacts:
         when: always
         paths:
-            - $LOGS_PATH/CodeGen/dcmtrCtrl_PID_ert_rtw
-#    reports:
-#       junit: ./Design/DriverSwRequest/pipeline/analyze/testing/DriverSwRequestJUnitFormatTestResults.xml
+            - GeneratedArtifacts/Webviews
+
+genSimpleApp:
+    stage: simpleAppGen
+    tags:
+        - on-prem
+    script:
+        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genSimpleApp;"
+    artifacts:
+        when: always
+        paths:
+            - GeneratedArtifacts/DeployableApps
 
 # a stage to assert that all stages in this child pipeline have passed successfully.
-# a deploy stage placeholder where ALL the artifacts are available for download
 artifactGen:      # Final Stage to alert users this job is done.
     stage: saveArtifacts
     tags:
         - on-prem
     script:
         - echo "Job Done!"
-        - echo "All artifacts of previous stage can be found here"
-#      - 'curl.exe --location --output "$ARTIFACTS_DOWNLOAD_PATH/DriverSwRequestArtifacts.zip" --header "PRIVATE-TOKEN: $CIPROJECTTOKEN" "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_BRANCH/download?job=DriverSwRequestPackage"'
-        - 'curl.exe --location --output "$ARTIFACTS_DOWNLOAD_PATH/dcMtrArtifacts.zip" --header "PRIVATE-TOKEN: CGgez9zk9axyFhLHMWyZ" "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_BRANCH/download?job=artifactGen"'
