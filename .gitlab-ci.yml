@@ -37,20 +37,8 @@ unit-SlTest-job:   # This job runs in the test stage.
       when: always
       paths:
         - GeneratedArtifacts/TestResults/
-      junit:
-        report_paths: GeneratedArtifacts/TestResults/*.xml
-    test:
-      stage: test
-      script:
-        - tap-merge GeneratedArtifacts/TestResults/*.tap > GeneratedArtifacts/TestResults/tap-results.tap
-      artifacts:
-        paths:
-          - GeneratedArtifacts/TestResults/tap-results.tap
-      rules:
-        - when: always
-    tap:
-      script:
-        - tap-parser GeneratedArtifacts/TestResults/tap-results.tap
+      reports:
+        junit: GeneratedArtifacts/TestResults/*.xml
 
 codeGen-job:      # This job runs the codeGen stage.
     stage: codeGen  
