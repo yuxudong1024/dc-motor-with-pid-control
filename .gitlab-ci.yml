@@ -32,7 +32,7 @@ unit-SlTest-job:   # This job runs in the test stage.
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); runProjectTests;"
+        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); results = runProjectTests; assertSuccess(results);"
     artifacts:
       when: always
       paths:

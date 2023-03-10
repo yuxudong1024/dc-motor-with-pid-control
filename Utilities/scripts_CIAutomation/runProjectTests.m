@@ -1,4 +1,4 @@
-function runProjectTests()
+function results = runProjectTests()
 % This script is to automate the tests contained in this project
 
 % List names of all test files
@@ -67,7 +67,8 @@ for i = 1:length(testsName)
                 warning off Stateflow:Runtime:TestVerificationFailed
     
     % Run the tests
-        run(myrunner,suite)
+        results = run(myrunner,suite);
+
 end
 
 % Cleanup
