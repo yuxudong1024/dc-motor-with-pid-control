@@ -5,6 +5,7 @@
 
 
 stages:          # List of stages for jobs, and their order of execution
+  - artifactFolders
   - check
   - test
   - codeGen
@@ -12,11 +13,18 @@ stages:          # List of stages for jobs, and their order of execution
   - simpleAppGen
   - saveArtifacts
 
-
 variables:
   ARTIFACTS_DOWNLOAD_PATH: "C:/Users/$GITLAB_USER_LOGIN/Downloads"
 
-mdlAdvisor-checks-job:       # This job runs in the model checks stage, which runs first.
+artifact-foldersNeeded-job:       # This job runs first.
+    stage: artifactFolders
+    tags:
+      - on-prem
+    script:
+      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); createArtifactFolders;"
+
+
+mdlAdvisor-checks-job:       # This job runs in the model checks stage
     stage: check
     tags:
       - on-prem
