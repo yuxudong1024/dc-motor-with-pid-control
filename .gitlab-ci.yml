@@ -21,6 +21,7 @@ diffDoc-job:       # This job runs in the model checks stage
     tags:
       - on-prem
     script:
+      - apt-get install -y git                       # This command used for installing Git
       - diffM=$(git diff --name-only --diff-filter=M $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
       - diffA=$(git diff --name-only --diff-filter=A $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
       - diffD=$(git diff --name-only --diff-filter=D $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
