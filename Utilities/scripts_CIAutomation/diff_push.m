@@ -1,4 +1,4 @@
-function diffGitHub_push(modifiedFiles,lastpush)
+function diff_push(modifiedFiles,lastpush)
     
     proj = currentProject;
 

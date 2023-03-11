@@ -1,4 +1,4 @@
-function diffGitHub_pullrequest(modifiedFiles)
+function diff_pullrequest(modifiedFiles)
 
     proj = currentProject;
 

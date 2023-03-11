@@ -5,6 +5,7 @@
 
 
 stages:          # List of stages for jobs, and their order of execution
+  - diffDoc
   - check
   - test
   - codeGen
@@ -15,6 +16,28 @@ stages:          # List of stages for jobs, and their order of execution
 variables:
   ARTIFACTS_DOWNLOAD_PATH: "C:/Users/$GITLAB_USER_LOGIN/Downloads"
 
+diffDoc-job:       # This job runs in the model checks stage
+    stage: diffDoc
+    tags:
+      - on-prem
+    script:
+      - diffM=$(git diff --name-only --diff-filter=M $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
+      - diffA=$(git diff --name-only --diff-filter=A $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
+      - diffD=$(git diff --name-only --diff-filter=D $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
+      - echo "::set-output name=diffA::$diffA"
+      - echo "::set-output name=diffM::$diffM"
+      - echo "::set-output name=diffM::$diffD"
+      - echo "Modified SLX files:"
+      - echo "$diffM"
+      - echo "Added SLX files:"
+      - echo "$diffA"
+      - echo "Deleted SLX files:"
+      - echo "$diffD"
+      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = "$CI_COMMIT_BEFORE_SHA"; changeList = "$diffM"; diff_push(changeList,lastpush);"
+    artifacts:
+      when: always
+      paths:
+        - GeneratedArtifacts/DiffReports/
 
 mdlAdvisor-checks-job:       # This job runs in the model checks stage
     stage: check
