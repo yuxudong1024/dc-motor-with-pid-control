@@ -10,7 +10,7 @@ stages:          # List of stages for jobs, and their order of execution
   - codeGen
   - webviewGen
   - simpleAppGen
-  - saveArtifacts
+  - cleanUpandClose
 
 variables:
   ARTIFACTS_DOWNLOAD_PATH: "C:/Users/$GITLAB_USER_LOGIN/Downloads"
@@ -75,7 +75,7 @@ genSimpleApp:
 
 # a stage to assert that all stages in this child pipeline have passed successfully.
 artifactGen:      # Final Stage to alert users this job is done.
-    stage: saveArtifacts
+    stage: cleanUpandClose
     tags:
         - on-prem
     script:
