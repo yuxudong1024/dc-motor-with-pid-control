@@ -65,7 +65,8 @@ unit-SlTest-job:   # This job runs in the test stage.
       paths:
         - GeneratedArtifacts/TestResults/
       reports:
-        junit: GeneratedArtifacts/TestResults/*.xml
+        junit: 
+        - GeneratedArtifacts/TestResults/*.xml
 
 codeGen-job:      # This job runs the codeGen stage.
     stage: codeGen  
