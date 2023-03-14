@@ -41,48 +41,47 @@ function diff_pullrequest(modifiedFiles)
     rmdir modelscopy s
 
     disp('ReportGen Complete!')
-end
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function report = diffToAncestor(tempdir,fileName)
-    
-    ancestor = getAncestor(tempdir,fileName);
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Compare models and publish results in a printable report
-    % Specify the format using 'pdf', 'html', or 'doc'
-        load_system(fileName)
-        load_system(ancestor)
+    function report = diffToAncestor(tempdir,fileName)
     
-        comp= visdiff(ancestor, fileName);
-        filter(comp, 'unfiltered');
-        options = struct('Format','doc',...
-                'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
-        report = publish(comp,options);
+        ancestor = getAncestor(tempdir,fileName);
     
-        close_system(fileName)
-        close_system(ancestor)
-    
-end
+        % Compare models and publish results in a printable report
+        % Specify the format using 'pdf', 'html', or 'doc'
+            load_system(fileName)
+            load_system(ancestor)
+        
+            comp= visdiff(ancestor, fileName);
+            filter(comp, 'unfiltered');
+            options = struct('Format','doc',...
+                    'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
+            report = publish(comp,options);
+        
+            close_system(fileName)
+            close_system(ancestor)
 
-
-function ancestor = getAncestor(tempdir,fileName)
-    
-    [relpath, name, ext] = fileparts(fileName);
-    ancestor = fullfile(tempdir, name);
-    
-    % Replace seperators to work with Git and create ancestor file name
-    fileName = strrep(fileName, '\', '/');
-    ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
-    
-    % Build git command to get ancestor from main
-    % git show refs/remotes/origin/main:models/modelname.slx > modelscopy/modelname_ancestor.slx
-    gitCommand = sprintf('git show refs/remotes/origin/master:"%s" > "%s"', fileName, ancestor);
-    
-    [status, result] = system(gitCommand);
-    assert(status==0, result);
-
+        function ancestor = getAncestor(tempdir,fileName)
+            
+            [relpath, name, ext] = fileparts(fileName);
+            ancestor = fullfile(tempdir, name);
+            
+            % Replace seperators to work with Git and create ancestor file name
+            fileName = strrep(fileName, '\', '/');
+            ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
+            
+            % Build git command to get ancestor from main
+            % git show refs/remotes/origin/main:models/modelname.slx > modelscopy/modelname_ancestor.slx
+            gitCommand = sprintf('git show refs/remotes/origin/master:"%s" > "%s"', fileName, ancestor);
+            
+            [status, result] = system(gitCommand);
+            assert(status==0, result);
+        
+        end
+    end
 end
 
 %   Copyright 2022 The MathWorks, Inc.

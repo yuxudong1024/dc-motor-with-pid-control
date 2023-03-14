@@ -40,7 +40,7 @@ function diff_push(modifiedFiles,lastpush)
     rmdir modelscopy s
 
     disp('ReportGen Complete!')
-end
+
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -61,26 +61,27 @@ end
     
             close_system(fileName)
             close_system(ancestor)
+    
+    
+        function ancestor = getAncestor(tempdir,fileName,lastpush)
+            
+            [relpath, name, ext] = fileparts(fileName);
+            ancestor = fullfile(tempdir, name);
+            
+            % Replace seperators to work with Git and create ancestor file name
+            fileName = strrep(fileName, '\', '/');
+            ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
+            
+            % Build git command to get ancestor
+            % git show lastpush:models/modelname.slx > modelscopy/modelname_ancestor.slx
+            gitCommand = sprintf('git show refs/remotes/origin/master %s:"%s" > "%s"', lastpush, fileName, ancestor);
+            
+            [status, result] = system(gitCommand);
+            assert(status==0, result);
         
+        end
     end
+end
+       
     
-    
-    function ancestor = getAncestor(tempdir,fileName,lastpush)
-        
-        [relpath, name, ext] = fileparts(fileName);
-        ancestor = fullfile(tempdir, name);
-        
-        % Replace seperators to work with Git and create ancestor file name
-        fileName = strrep(fileName, '\', '/');
-        ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
-        
-        % Build git command to get ancestor
-        % git show lastpush:models/modelname.slx > modelscopy/modelname_ancestor.slx
-        gitCommand = sprintf('git show refs/remotes/origin/master %s:"%s" > "%s"', lastpush, fileName, ancestor);
-        
-        [status, result] = system(gitCommand);
-        assert(status==0, result);
-    
-    end
-
 %   Copyright 2022 The MathWorks, Inc.
