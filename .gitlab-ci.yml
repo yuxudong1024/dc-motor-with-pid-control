@@ -21,20 +21,26 @@ diffDoc-job:       # This job runs in the model checks stage
     tags:
       - on-prem
     script:
-      - apt-get install -y git                       # This command used for installing Git
-      - diffM=$(git diff --name-only --diff-filter=M $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
-      - diffA=$(git diff --name-only --diff-filter=A $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
-      - diffD=$(git diff --name-only --diff-filter=D $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA -- **/*.slx)
-      - echo "::set-output name=diffA::$diffA"
-      - echo "::set-output name=diffM::$diffM"
-      - echo "::set-output name=diffM::$diffD"
+
+# diffM ="git diff --name-only --diff-filter=M master refs/remotes/origin/master -- **/*.slx"
+# diffA ="git diff --name-only --diff-filter=A master refs/remotes/origin/master -- **/*.slx"
+# diffD ="git diff --name-only --diff-filter=D master refs/remotes/origin/master -- **/*.slx"
+
+        # Checkout the latest and previous commit
+      - git checkout master
+      - $latestCommit = git rev-parse HEAD
+      - $previousCommit = git rev-parse HEAD~1
+
+      - $diffM= git diff --name-only --diff-filter=M $previousCommit $latestCommit -- **/*.slx
+      - $diffA= git diff --name-only --diff-filter=A $previousCommit $latestCommit -- **/*.slx
+      - $diffD= git diff --name-only --diff-filter=D $previousCommit $latestCommit -- **/*.slx
       - echo "Modified SLX files:"
       - echo "$diffM"
       - echo "Added SLX files:"
       - echo "$diffA"
       - echo "Deleted SLX files:"
       - echo "$diffD"
-      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = "$CI_COMMIT_BEFORE_SHA"; changeList = "$diffM"; diff_push(changeList,lastpush);"
+      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = "$previousCommit"; changeList = "$diffM"; diff_push(changeList,lastpush);"
     artifacts:
       when: always
       paths:
