@@ -23,6 +23,7 @@ diffDoc-job:       # This job runs in the model checks stage
     script:
         # Checkout the latest and previous commit
       - git checkout master
+      - git pull
       - $latestCommit = git rev-parse HEAD
       - $previousCommit = git rev-parse HEAD~1
         # Diff the files to ID what's changed
