@@ -15,9 +15,12 @@ function diff_pullrequest(modifiedFiles)
         disp('No modified models to compare.')
         return
     else
-        modifiedFiles = split(modifiedFiles);
+        % ID all the SLX filenames and 
+        modifiedFiles = split(modifiedFiles,[" ","\","/"]);
+        idx = contains(modifiedFiles,".slx");
+        modifiedFiles = modifiedFiles(idx);
+
         disp('List of Modified SLX Files:')
-        % modifiedFiles(end) = []; % Removing last element because it is empty
         disp(modifiedFiles)
     end
     
@@ -49,11 +52,17 @@ function report = diffToAncestor(tempdir,fileName)
 
     % Compare models and publish results in a printable report
     % Specify the format using 'pdf', 'html', or 'docx'
+    load_system(fileName)
+    load_system(ancestor)
+
     comp= visdiff(ancestor, fileName);
     filter(comp, 'unfiltered');
-    options = struct('format','doc',...
-            'outputDir',fullfile(prj.RootFolder,'GeneratedArtifacts','DiffReports'));
+    options = struct('Format','doc',...
+            'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
     report = publish(comp,options);
+
+    close_system(fileName)
+    close_system(ancestor)
     
 end
 
@@ -68,7 +77,7 @@ function ancestor = getAncestor(tempdir,fileName)
     ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
     % Build git command to get ancestor from main
     % git show refs/remotes/origin/main:models/modelname.slx > modelscopy/modelname_ancestor.slx
-    gitCommand = sprintf('git show refs/remotes/origin/master:%s > %s', fileName, ancestor);
+    gitCommand = sprintf('git show refs/remotes/origin/master:"%s" > "%s"', fileName, ancestor);
     
     [status, result] = system(gitCommand);
     assert(status==0, result);
