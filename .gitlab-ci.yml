@@ -21,16 +21,11 @@ diffDoc-job:       # This job runs in the model checks stage
     tags:
       - on-prem
     script:
-
-# diffM ="git diff --name-only --diff-filter=M master refs/remotes/origin/master -- **/*.slx"
-# diffA ="git diff --name-only --diff-filter=A master refs/remotes/origin/master -- **/*.slx"
-# diffD ="git diff --name-only --diff-filter=D master refs/remotes/origin/master -- **/*.slx"
-
         # Checkout the latest and previous commit
       - git checkout master
       - $latestCommit = git rev-parse HEAD
       - $previousCommit = git rev-parse HEAD~1
-
+        # Diff the files to ID what's changed
       - $diffM= git diff --name-only --diff-filter=M $previousCommit $latestCommit -- **/*.slx
       - $diffA= git diff --name-only --diff-filter=A $previousCommit $latestCommit -- **/*.slx
       - $diffD= git diff --name-only --diff-filter=D $previousCommit $latestCommit -- **/*.slx
@@ -40,7 +35,8 @@ diffDoc-job:       # This job runs in the model checks stage
       - echo "$diffA"
       - echo "Deleted SLX files:"
       - echo "$diffD"
-      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = "$previousCommit"; changeList = "$diffM"; diff_push(changeList,lastpush);"
+        # Pass required information into MATLAB in order to produce the diff reports as docs
+      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = '$previousCommit'; changeList = '$diffM'; diff_push(changeList,lastpush);"
     artifacts:
       when: always
       paths:
