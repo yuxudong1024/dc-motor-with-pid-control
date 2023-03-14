@@ -1,21 +1,19 @@
 function diff_pullrequest(modifiedFiles)
+% Function to produce the diff reports as DOC files between the latest version
+% of the master branch, and the HEAD of the merging branch. 
+% This function takes the names of SLX files identified when running git diff.
+
+% To run This function, you should first run a git diff
+% $diffM= git diff --name-only --diff-filter=M $mergingBranch $latestMaster -- **/*.slx
+
 
     proj = currentProject;
 
-%     % List modified models since branch diverged from main
-%     % Use *** to search recursively for modified SLX files starting in the current folder
-%     % git diff --name-only refs/remotes/origin/main..refs/remotes/origin/branchtomerge
-%     gitCommand = sprintf('git diff --name-only refs/remotes/origin/master..refs/remotes/origin/%s ***.slx', branchname);
-%     [status,modifiedFiles] = system(gitCommand);
-%     assert(status==0, modifiedFiles);
-%     modifiedFiles = split(modifiedFiles);
-%     modifiedFiles(end) = []; % Removing last element because it is empty
-    
+    % List out names of all SLX files within Repo that were modified
     if isempty(modifiedFiles)
         disp('No modified models to compare.')
         return
     else
-        % ID all the SLX filenames and 
         modifiedFiles = split(modifiedFiles,[" ","\","/"]);
         idx = contains(modifiedFiles,".slx");
         modifiedFiles = modifiedFiles(idx);
@@ -33,8 +31,10 @@ function diff_pullrequest(modifiedFiles)
     
     % Generate a comparison report for every modified model file
     for i = 1:numel(modifiedFiles)
-        disp(['Creating report for' modifiedFiles(i)])
-        report = diffToAncestor(tempdir,string(modifiedFiles(i)));
+        filePath = which(modifiedFiles{i});
+        filePath = erase(filePath,fullfile(proj.RootFolder,'/'));
+        disp(['Creating report for ' filePath])
+        report = diffToAncestor(tempdir,string(filePath));
     end
     
     % Delete the temporary folder
@@ -51,18 +51,18 @@ function report = diffToAncestor(tempdir,fileName)
     ancestor = getAncestor(tempdir,fileName);
 
     % Compare models and publish results in a printable report
-    % Specify the format using 'pdf', 'html', or 'docx'
-    load_system(fileName)
-    load_system(ancestor)
-
-    comp= visdiff(ancestor, fileName);
-    filter(comp, 'unfiltered');
-    options = struct('Format','doc',...
-            'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
-    report = publish(comp,options);
-
-    close_system(fileName)
-    close_system(ancestor)
+    % Specify the format using 'pdf', 'html', or 'doc'
+        load_system(fileName)
+        load_system(ancestor)
+    
+        comp= visdiff(ancestor, fileName);
+        filter(comp, 'unfiltered');
+        options = struct('Format','doc',...
+                'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
+        report = publish(comp,options);
+    
+        close_system(fileName)
+        close_system(ancestor)
     
 end
 
@@ -75,6 +75,7 @@ function ancestor = getAncestor(tempdir,fileName)
     % Replace seperators to work with Git and create ancestor file name
     fileName = strrep(fileName, '\', '/');
     ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
+    
     % Build git command to get ancestor from main
     % git show refs/remotes/origin/main:models/modelname.slx > modelscopy/modelname_ancestor.slx
     gitCommand = sprintf('git show refs/remotes/origin/master:"%s" > "%s"', fileName, ancestor);

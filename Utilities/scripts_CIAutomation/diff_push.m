@@ -1,12 +1,18 @@
 function diff_push(modifiedFiles,lastpush)
-    
+% Function to produce the diff reports as DOC files between the latest version
+% of the master branch, and the previous version of the master branch. 
+% This function takes the names of SLX files identified when running git diff.
+
+% To run This function, you should first run a git diff
+% $diffM= git diff --name-only --diff-filter=M $previousCommit $latestCommit -- **/*.slx
+
     proj = currentProject;
 
+    % List out names of all SLX files within Repo that were modified
     if isempty(modifiedFiles)
         disp('No modified models to compare.')
         return
     else
-        % ID all the SLX filenames and 
         modifiedFiles = split(modifiedFiles,[" ","\","/"]);
         idx = contains(modifiedFiles,".slx");
         modifiedFiles = modifiedFiles(idx);
@@ -34,6 +40,7 @@ function diff_push(modifiedFiles,lastpush)
     rmdir modelscopy s
 
     disp('ReportGen Complete!')
+end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -43,17 +50,17 @@ function diff_push(modifiedFiles,lastpush)
     
         % Compare models and publish results in a printable report
         % Specify the format using 'pdf', 'html', or 'docx'
-        load_system(fileName)
-        load_system(ancestor)
-
-        comp= visdiff(ancestor, fileName);
-        filter(comp, 'unfiltered');
-        options = struct('Format','doc',...
-            'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
-        report = publish(comp,options);
-
-        close_system(fileName)
-        close_system(ancestor)
+            load_system(fileName)
+            load_system(ancestor)
+    
+            comp= visdiff(ancestor, fileName);
+            filter(comp, 'unfiltered');
+            options = struct('Format','doc',...
+                'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
+            report = publish(comp,options);
+    
+            close_system(fileName)
+            close_system(ancestor)
         
     end
     
@@ -75,6 +82,5 @@ function diff_push(modifiedFiles,lastpush)
         assert(status==0, result);
     
     end
-end
 
 %   Copyright 2022 The MathWorks, Inc.
