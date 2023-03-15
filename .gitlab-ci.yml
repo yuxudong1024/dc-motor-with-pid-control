@@ -66,7 +66,10 @@ unit-SlTest-job:   # This job runs in the test stage.
         - GeneratedArtifacts/TestResults/
       reports:
         junit: 
-        - GeneratedArtifacts/TestResults/*.xml
+        - GeneratedArtifacts/TestResults/*_results.xml
+        coverage_report:
+          coverage_format: cobertura
+          path: GeneratedArtifacts/TestResults/*_cov.xml
 
 codeGen-job:      # This job runs the codeGen stage.
     stage: codeGen  
