@@ -37,7 +37,7 @@ diffDoc-job:       # This job runs in the model checks stage
       - echo "Deleted SLX files:"
       - echo "$diffD"
         # Pass required information into MATLAB in order to produce the diff reports as docs
-      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = '$previousCommit'; changeList = '$diffM'; diff_push(changeList,lastpush);"
+      - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); lastpush = '$previousCommit'; changeList = '$diffM'; diff_push(changeList,lastpush);"
     artifacts:
       when: always
       paths:
