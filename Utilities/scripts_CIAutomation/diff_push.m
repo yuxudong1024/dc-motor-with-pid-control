@@ -25,8 +25,11 @@ function diff_push(modifiedFiles,lastpush)
     % If you have models with the same name in different folders, consider
     % creating multiple folders to prevent overwriting temporary models
     disp('Creating a copy of the previous commmits for diff')
+    disp('Creating a local folder called "modelscopy" to hold the previous version of the SLX')
     tempdir = fullfile(proj.RootFolder, "modelscopy");
     mkdir(tempdir)
+    disp('Folder Created!')
+
     
     % Generate a comparison report for every modified model file
     for i = 1:numel(modifiedFiles)
@@ -37,6 +40,7 @@ function diff_push(modifiedFiles,lastpush)
     end
     
     % Delete the temporary folder
+    disp('Removiing the "modelscopy" folder')
     rmdir modelscopy s
 
     disp('ReportGen Complete!')
@@ -45,14 +49,16 @@ function diff_push(modifiedFiles,lastpush)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     function report = diffToAncestor(tempdir,fileName,lastpush)
-        
+        disp("Getting the ancestor version of the SLX file")
+        disp(["SLX File Name = " fileName "; lastpush = " lastpush])
         ancestor = getAncestor(tempdir,fileName,lastpush);
     
         % Compare models and publish results in a printable report
         % Specify the format using 'pdf', 'html', or 'docx'
             load_system(fileName)
             load_system(ancestor)
-    
+            disp(fileName)
+            disp(ancestor)
             comp= visdiff(ancestor, fileName);
             filter(comp, 'unfiltered');
             options = struct('Format','doc',...
@@ -67,14 +73,17 @@ function diff_push(modifiedFiles,lastpush)
             
             [relpath, name, ext] = fileparts(fileName);
             ancestor = fullfile(tempdir, name);
+            disp(["Locaiton to save in the ancestor file is: " ancestor])
             
             % Replace seperators to work with Git and create ancestor file name
             fileName = strrep(fileName, '\', '/');
             ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
+            disp(["Name to save in the ancestor file is: " ancestor])
             
             % Build git command to get ancestor
             % git show lastpush:models/modelname.slx > modelscopy/modelname_ancestor.slx
             gitCommand = sprintf('git show refs/remotes/origin/master %s:"%s" > "%s"', lastpush, fileName, ancestor);
+            disp(["executing git command: " gitCommand])
             
             [status, result] = system(gitCommand);
             assert(status==0, result);
@@ -84,4 +93,4 @@ function diff_push(modifiedFiles,lastpush)
 end
        
     
-%   Copyright 2022 The MathWorks, Inc.
+%   Copyright 2023 The MathWorks, Inc.
