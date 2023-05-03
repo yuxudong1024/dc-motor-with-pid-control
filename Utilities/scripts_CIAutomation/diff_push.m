@@ -24,8 +24,8 @@ function diff_push(modifiedFiles,lastpush)
     % Create a temporary folder to store the ancestors of the modified models
     % If you have models with the same name in different folders, consider
     % creating multiple folders to prevent overwriting temporary models
-    disp('Creating a copy of the previous commmits for diff')
     disp('Creating a local folder called "modelscopy" to hold the previous version of the SLX')
+    disp('A copy of the previous committed version of the slx will be added into this folder for diffs')
     tempdir = fullfile(proj.RootFolder, "modelscopy");
     mkdir(tempdir)
     disp('Folder Created!')
@@ -37,10 +37,11 @@ function diff_push(modifiedFiles,lastpush)
         filePath = erase(filePath,fullfile(proj.RootFolder,'/'));
         disp(['Creating report for ' filePath])
         report = diffToAncestor(tempdir,string(filePath),lastpush);
+        disp(['Report creation complete for ' filePath])
     end
     
     % Delete the temporary folder
-    disp('Removiing the "modelscopy" folder')
+    disp('Removing the "modelscopy" folder')
     rmdir modelscopy s
 
     disp('ReportGen Complete!')
@@ -49,17 +50,19 @@ function diff_push(modifiedFiles,lastpush)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     function report = diffToAncestor(tempdir,fileName,lastpush)
-        disp("Getting the ancestor version of the SLX file")
-        disp(["SLX File Name = " fileName "; lastpush = " lastpush])
+        disp("    Getting the ancestor version of the SLX file")
+        disp(strcat("    SLX File Name = ", fileName, "; lastpush = " ,lastpush))
         ancestor = getAncestor(tempdir,fileName,lastpush);
     
         % Compare models and publish results in a printable report
         % Specify the format using 'pdf', 'html', or 'docx'
+            disp(strcat("    Load the model:  ", fileName))
             load_system(fileName)
+            disp(strcat("    Load the model:  ", ancestor))
             load_system(ancestor)
-            disp(fileName)
-            disp(ancestor)
+            disp('    Run the "visdiff" command')
             comp= visdiff(ancestor, fileName);
+            disp('    Save the "visdiff" output as a doc')
             filter(comp, 'unfiltered');
             options = struct('Format','doc',...
                 'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
@@ -73,20 +76,22 @@ function diff_push(modifiedFiles,lastpush)
             
             [relpath, name, ext] = fileparts(fileName);
             ancestor = fullfile(tempdir, name);
-            disp(["Locaiton to save in the ancestor file is: " ancestor])
+            disp(strcat("        Locaiton to save in the ancestor file is: ", ancestor))
             
             % Replace seperators to work with Git and create ancestor file name
             fileName = strrep(fileName, '\', '/');
             ancestor = strrep(sprintf('%s%s%s',ancestor, "_ancestor", ext), '\', '/');
-            disp(["Name to save in the ancestor file is: " ancestor])
+            disp(strcat("        Name to save in the ancestor file is: ", ancestor))
             
             % Build git command to get ancestor
             % git show lastpush:models/modelname.slx > modelscopy/modelname_ancestor.slx
             gitCommand = sprintf('git show refs/remotes/origin/master %s:"%s" > "%s"', lastpush, fileName, ancestor);
-            disp(["executing git command: " gitCommand])
+            disp("        Executing the following git command using the 'system' function in MATLAB: ")
+            disp(strcat("            ",gitCommand))
             
             [status, result] = system(gitCommand);
             assert(status==0, result);
+            disp('        Copied over the Previous version of the SLX file into the "modelscopy" folder')
         
         end
     end
