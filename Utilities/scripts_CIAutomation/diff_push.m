@@ -85,7 +85,7 @@ function diff_push(modifiedFiles,lastpush)
             
             % Build git command to get ancestor
             % git show lastpush:models/modelname.slx > modelscopy/modelname_ancestor.slx
-            gitCommand = sprintf('git show refs/remotes/origin/master %s:"%s" > "%s"', lastpush, fileName, ancestor);
+            gitCommand = sprintf('git show %s:"%s" > "%s"', lastpush, fileName, ancestor);
             disp("        Executing the following git command using the 'system' function in MATLAB: ")
             disp(strcat("            ",gitCommand))
             
