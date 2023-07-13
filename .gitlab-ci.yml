@@ -50,7 +50,7 @@ mdlAdvisor-checks-job:       # This job runs in the model checks stage
     tags:
       - on-prem
     script:
-      - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); runProjectChecks;"
+      - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); runProjectChecks;"
     artifacts:
       when: always
       paths:
@@ -61,7 +61,7 @@ unit-SlTest-job:   # This job runs in the test stage.
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); results = runProjectTests; assertSuccess(results);"
+        - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); results = runProjectTests; assertSuccess(results);"
     artifacts:
       when: always
       paths:
@@ -78,7 +78,7 @@ codeGen-job:      # This job runs the codeGen stage.
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genCCode;"
+        - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genCCode;"
     artifacts:
         when: always
         paths:
@@ -89,7 +89,7 @@ webviewGen-job:      # This job runs generated webviews of models
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genWebView;"
+        - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genWebView;"
     artifacts:
         when: always
         paths:
@@ -100,7 +100,7 @@ genSimpleApp:
     tags:
         - on-prem
     script:
-        - mw -using R2022b matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genSimpleApp;"
+        - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genSimpleApp;"
     artifacts:
         when: always
         paths:
