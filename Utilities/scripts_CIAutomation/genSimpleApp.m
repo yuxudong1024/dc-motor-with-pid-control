@@ -20,6 +20,9 @@ function genSimpleApp()
         simulink.compiler.genapp(mdlName{i}, 'AppName', ['App_' mdlName{i}])
         close_system(mdlName{i})
 
+        h_fig = findall(0,'Name','Simulation App: ssc_dcmtr_sl');  % Where <App_Title> is the string displayed at the top of the app window.
+        delete(h_fig)
+
         cd ..
 
         movefile(mdlName{i},...
@@ -27,4 +30,5 @@ function genSimpleApp()
     end
 
 % Cleanup
+    bdclose all
     disp('App Generation complete.')
