@@ -94,16 +94,16 @@ webviewGen-job:      # This job runs generated webviews of models
         paths:
             - GeneratedArtifacts/Webviews
 
-genSimpleApp:
-    stage: simpleAppGen
-    tags:
-        - on-prem
-    script:
-        - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genSimpleApp;"
-    artifacts:
-        when: always
-        paths:
-            - GeneratedArtifacts/DeployableApps
+# genSimpleApp:
+#    stage: simpleAppGen
+#    tags:
+#        - on-prem
+#    script:
+#        - mw -using R2023a matlab -nodesktop -batch "openProject('DCMotorCtrl.prj'); genSimpleApp;"
+#    artifacts:
+#        when: always
+#        paths:
+#            - GeneratedArtifacts/DeployableApps
 
 # a stage to assert that all stages in this child pipeline have passed successfully.
 artifactGen:      # Final Stage to alert users this job is done.
