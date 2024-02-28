@@ -10,7 +10,7 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - codeGen
   - webviewGen
-  - genSimpleApp
+  - simpleAppGen
   - cleanUpandClose
 
 variables:
@@ -95,7 +95,7 @@ webviewGen-job:      # This job runs generated webviews of models
         paths:
             - GeneratedArtifacts/Webviews
 
-genSimpleApp:
+genSimpleApp-job:
     stage: simpleAppGen
     tags:
         - on-prem
