@@ -19,4 +19,10 @@ function genSimpleApp()
 
 % Cleanup
     bdclose all
+    bdclose all
+    disp('closed any and all open Simulink files')
+    
+    rmdir Work/slprj s
+    disp('SLPRJ files deleted')
+
     disp('App Generation complete.')
