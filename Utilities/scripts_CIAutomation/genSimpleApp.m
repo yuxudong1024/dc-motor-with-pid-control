@@ -22,7 +22,9 @@ function genSimpleApp()
     bdclose all
     disp('closed any and all open Simulink files')
     
-    rmdir Work/slprj s
-    disp('SLPRJ files deleted')
+    if isfolder(fullfile(prj.SimulinkCacheFolder,'slprj'))
+        rmdir(fullfile(prj.SimulinkCacheFolder,'slprj'),"s")
+        disp('SLPRJ Cache files deleted')
+    end
 
     disp('App Generation complete.')
