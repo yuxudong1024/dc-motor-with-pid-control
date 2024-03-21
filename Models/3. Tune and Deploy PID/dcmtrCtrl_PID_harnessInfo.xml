@@ -6,13 +6,13 @@
     <P Name="CreatedBy">smuckati</P>
     <P Name="CreatedOn">Wed Feb 09 13:59:23 2022</P>
     <P Name="ModifiedBy">smuckati</P>
-    <P Name="LastSaved">Thu Mar 21 10:26:05 2024</P>
+    <P Name="LastSaved">Thu Mar 21 12:55:13 2024</P>
     <P Name="Owner">bd</P>
     <P Name="OwnerType">BD_HARNESS</P>
     <P Name="OwnerPath">.</P>
     <P Name="Directory"/>
     <P Name="FileName">dcmtrCtrl_PID_Harness0.slx</P>
-    <P Name="SavedVersion">10.7</P>
+    <P Name="SavedVersion">24.1</P>
     <P Name="HarnessUUID">2a825674-deba-4872-a994-28786fa2ec36</P>
     <P Name="HarnessConnectionsMap">0,1|0|0,0,0,0||</P>
     <P Name="VerificationMode">0</P>
@@ -37,6 +37,7 @@
     <P Name="OpenGraphs"/>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
+    <P Name="SysArchSUTModel"/>
   </Harness>
   <Harness>
     <P Name="Name">dcmtrCtrl_PID_Harness1</P>
@@ -44,13 +45,13 @@
     <P Name="CreatedBy">smuckati</P>
     <P Name="CreatedOn">Wed Feb 09 13:10:52 2022</P>
     <P Name="ModifiedBy">smuckati</P>
-    <P Name="LastSaved">Tue Mar 14 03:51:50 2023</P>
+    <P Name="LastSaved">Thu Mar 21 12:26:18 2024</P>
     <P Name="Owner">bd</P>
     <P Name="OwnerType">BD_HARNESS</P>
     <P Name="OwnerPath">.</P>
     <P Name="Directory"/>
     <P Name="FileName">dcmtrCtrl_PID_Harness1.slx</P>
-    <P Name="SavedVersion">10.6</P>
+    <P Name="SavedVersion">24.1</P>
     <P Name="HarnessUUID">772f3684-0509-427b-a710-3583d5779763</P>
     <P Name="HarnessConnectionsMap">0,1|0|0,0,0,0||</P>
     <P Name="VerificationMode">0</P>
@@ -75,6 +76,7 @@
     <P Name="OpenGraphs">||||dcmtrCtrl_PID_Harness1</P>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
+    <P Name="SysArchSUTModel"/>
   </Harness>
   <Harness>
     <P Name="Name">dcmtrCtrl_PID_send2Ardu</P>
@@ -82,13 +84,13 @@
     <P Name="CreatedBy">smuckati</P>
     <P Name="CreatedOn">Sat Jun 04 19:29:10 2022</P>
     <P Name="ModifiedBy">smuckati</P>
-    <P Name="LastSaved">Thu Sep 22 09:46:53 2022</P>
+    <P Name="LastSaved">Thu Mar 21 12:26:47 2024</P>
     <P Name="Owner">bd</P>
     <P Name="OwnerType">BD_HARNESS</P>
     <P Name="OwnerPath">.</P>
     <P Name="Directory"/>
     <P Name="FileName">dcmtrCtrl_PID_send2Ardu.slx</P>
-    <P Name="SavedVersion">10.6</P>
+    <P Name="SavedVersion">24.1</P>
     <P Name="HarnessUUID">74af6bce-fe2e-4136-a1a4-1fff1049da50</P>
     <P Name="HarnessConnectionsMap">0,1|0|0,0,0,0||</P>
     <P Name="VerificationMode">0</P>
@@ -113,6 +115,7 @@
     <P Name="OpenGraphs"/>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
+    <P Name="SysArchSUTModel"/>
   </Harness>
   <Harness>
     <P Name="Name">dcmtrCtrl_PID_wHandCode</P>
@@ -120,13 +123,13 @@
     <P Name="CreatedBy">smuckati</P>
     <P Name="CreatedOn">Sat Jun 04 20:09:21 2022</P>
     <P Name="ModifiedBy">smuckati</P>
-    <P Name="LastSaved">Thu Sep 22 09:46:03 2022</P>
+    <P Name="LastSaved">Thu Mar 21 12:26:54 2024</P>
     <P Name="Owner">bd</P>
     <P Name="OwnerType">BD_HARNESS</P>
     <P Name="OwnerPath">.</P>
     <P Name="Directory"/>
     <P Name="FileName">dcmtrCtrl_PID_wHandCode.slx</P>
-    <P Name="SavedVersion">10.6</P>
+    <P Name="SavedVersion">24.1</P>
     <P Name="HarnessUUID">38533fb4-9ca7-4f31-890a-1b6c8c13e087</P>
     <P Name="HarnessConnectionsMap">||32,0,96,0||</P>
     <P Name="VerificationMode">0</P>
@@ -151,6 +154,7 @@
     <P Name="OpenGraphs">||||dcmtrCtrl_PID_wHandCode</P>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
+    <P Name="SysArchSUTModel"/>
   </Harness>
   <ModelMetadata>
     <P Name="ModelUUID">7051da3a-ac9c-4b13-8234-a9ae4e24bf21</P>
