@@ -68,8 +68,8 @@ function diff_push(modifiedFiles,lastpush)
                 'OutputFolder',fullfile(proj.RootFolder,'GeneratedArtifacts','DiffReports'));
             report = publish(comp,options);
     
-            close_system(fileName)
-            close_system(ancestor)
+            close_system(fileName,0)
+            close_system(ancestor,0)
     
     
         function ancestor = getAncestor(tempdir,fileName,lastpush)
