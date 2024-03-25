@@ -2,7 +2,7 @@ function genSimpleApp()
 % This script is to automate the webview generation of models contained in this project
 
 % List names of all models for which code is being generated
-    appName = {'dcMtr_BehaviorApp'};
+    appName = {'dcMtr_BehaviorApp.mlapp'};
 
 % Get handle to project
     prj = matlab.project.currentProject;
@@ -12,8 +12,10 @@ function genSimpleApp()
 % Generate app
     for i = 1:length(appName)
         disp(['Generating App of ' appName{i} '...'])
+        
+        appLocation = which(appName{i});
 
-        mcc('-m',[appName{i} '.mlapp'], ...
+        mcc('-m',appLocation, ...
             '-d',fullfile(prj.RootFolder,'GeneratedArtifacts','DeployableApps',appName{i}))
     end
 
