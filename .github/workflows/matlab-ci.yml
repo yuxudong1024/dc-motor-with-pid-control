@@ -50,6 +50,8 @@ jobs:
             Parallel_Computing_Toolbox
             MATLAB_Report_Generator
             Simulink_Report_Generator
+            MATLAB_Support_Package_for_Arduino_Hardware
+            Simulink_Support_Package_for_Arduino_Hardware
 
       - name: Start display server (required for building doc in MATLAB)
         run: |
