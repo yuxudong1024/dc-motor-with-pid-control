@@ -17,13 +17,13 @@ None
 ## Recording
 Product                       | Topic                                   | Link
 ------------------------------| --------------------------------------- | -------------
-Simulink and Simscape         | Using Simscape for Physical Modeling    | https://web.microsoftstream.com/video/deaac496-1bd2-4c82-a009-093d151410d3
+Simulink and Simscape         | Using Simscape for Physical Modeling    | [Video](https://mathworks.sharepoint.com/:v:/s/aeg/EfuGQS5Bqg5VIgwoCzy88zMBDVNKyf6T4vGjfGFeJXV3cw?e=IcagrR&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 Parallel Computing Toolbox    | Parameter Sweeps with Simulink and PCT  | <Coming Soon>
-Simulink Design Optimization  | Estimate Parameters to match TestData   | https://web.microsoftstream.com/video/2867db18-3a7d-46a0-a54b-171b261a7c76
-Simulink Control Design       | PID Tuning with Plant Model             | https://web.microsoftstream.com/video/1d971c42-dcf0-437d-ac7a-054f92383bdd
-Embedded Coder                | Going from Models to C code             | https://web.microsoftstream.com/video/23aeb171-7f9c-46d0-967a-0b13dde88a18
-Simulink Test                 | Test your controller with Simulink Test | https://web.microsoftstream.com/video/aafffffd-27ba-469a-b846-ab64c0323e7e
-Stateflow                     | Adding supervisory logic with Stateflow | https://web.microsoftstream.com/video/9917af2d-9891-4134-8cf4-92187100a55e
+Simulink Design Optimization  | Estimate Parameters to match TestData   | [Video](https://mathworks.sharepoint.com/sites/aeg/_layouts/15/stream.aspx?uniqueId=a0e6a4b7%2Da171%2D5bc7%2D3102%2Dbfee16090db2&portal=%7B%22ha%22%3A%22classicstream%22%2C%22hm%22%3A%22view%22%7D&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ee5999077%2D509f%2D40ad%2D935d%2D62a899b8fa93&scenario=2)
+Simulink Control Design       | PID Tuning with Plant Model             | [Video](https://mathworks.sharepoint.com/:v:/s/aeg/Eb1-tiAL1-lURNm2Z6Xkk1kBe1RPrtzo7r2k1VEr0bIzEg?e=HOdmNN&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+Embedded Coder                | Going from Models to C code             | [Video](https://mathworks.sharepoint.com/:v:/s/aeg/Eb1-tiAL1-lURNm2Z6Xkk1kBe1RPrtzo7r2k1VEr0bIzEg?e=HOdmNN&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+Simulink Test                 | Test your controller with Simulink Test | [Video](https://mathworks-my.sharepoint.com/:v:/p/smuckati/EWdcxTrI9XFY1jzIjfrdg_MBoz0K0tw_LIxajymUTPemmA?e=XVxgfh&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+Stateflow                     | Adding supervisory logic with Stateflow | [Video](https://mathworks.sharepoint.com/:v:/s/aeg/EbrV8t6VRbdQu4PDOhPasrUB-0S1919D5tD1XSsOd0wgYw?e=3LpSDa&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
 ## Contact
 Sameer K Muckatira
