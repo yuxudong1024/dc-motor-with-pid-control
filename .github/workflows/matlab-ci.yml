@@ -64,6 +64,16 @@ jobs:
           use-parallel: true
           test-results-junit: test-results/results.xml
           code-coverage-cobertura: code-coverage/coverage.xml
+
+      - name: Junit Test Summary
+        uses: test-summary/action@v2
+        with:
+           paths: "test-results/results.xml"
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+           files:"test-results/results.xml"
  
  #     - name: Run un ${{ matrix.os }} with script
  #       uses: matlab-actions/run-command@v2
