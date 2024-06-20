@@ -31,3 +31,7 @@ Sameer K Muckatira
 ## Relevant Industries
 Automotive, Aerospace, Robotics, Power electronics, MedDevices with motors, Electromechanical Devices. 
 Really, anyone adopting MBD
+
+## Mirror to GitHub repo for GitHub Action to run
+
+(https://github.com/yuxudong1024/dc-motor-with-pid-control/tree/master)
