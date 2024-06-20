@@ -73,7 +73,7 @@ jobs:
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
-           files:"test-results/results.xml"
+           files: "test-results/results.xml"
  
  #     - name: Run un ${{ matrix.os }} with script
  #       uses: matlab-actions/run-command@v2
