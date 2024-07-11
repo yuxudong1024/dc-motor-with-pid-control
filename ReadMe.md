@@ -44,8 +44,8 @@ Setup the upstream mirror:
 
 `system('git remote add upstream https://github.com/yuxudong1024/dc-motor-with-pid-control')`
 
-`system('git push upstream master')`
-
 Then, everytime mirror the upstream:
+
+`system('git push upstream master')`
 
 `system('git push --tags upstream')`
