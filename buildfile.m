@@ -21,6 +21,11 @@ plan("ctf").Outputs = [...
     "results/ctf-archive/dcMtr_BehaviorApp.ctf", ...
     "results/ctf-archive"];
 %     "results/ctf-build-results.mat", ...
+
+% Codegen
+
+% plan('codegen').Dependencies = ["lint","setupCompiler"];
+
 end
 
 function setupCompilerTask(~)
@@ -52,3 +57,7 @@ buildResults = webAppArchive(opts);
 save(ctfBuildResults,"buildResults");
 end
 
+% function codegenTask(context)
+% %import 
+% 
+% end
