@@ -18,7 +18,7 @@ jobs:
     # This job will run for all the OS present in the matrix
     strategy:
       matrix:
-         os: [ubuntu-latest]
+         os: [ubuntu-latest, windows-latest]
         #os: [ubuntu-latest, windows-latest, macos-13]
      
     # The type of runner that the job will run on
@@ -61,6 +61,7 @@ jobs:
       - name: Run ${{ matrix.os }} build to run tests on it
         uses: matlab-actions/run-build@v2
         with:
+          tasks: deploy
           test-results-junit: test-results/results.xml
           code-coverage-cobertura: code-coverage/coverage.xml
 
@@ -74,7 +75,8 @@ jobs:
         with:
            files: "test-results/results.xml"
  
- #     - name: Run un ${{ matrix.os }} with script
- #       uses: matlab-actions/run-command@v2
- #       with:
- #         command: myscript
+      - name: Upload WebApp Server Archive 
+        uses: actions/upload-artifact@v4
+        with:
+          name: DC-Motor-Pid WepApp Server Archive 
+          path: GeneratedArtifacts/DeployableApps
